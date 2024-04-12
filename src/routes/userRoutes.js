@@ -1,11 +1,12 @@
 import express from 'express';
 import pool from '../config/database.js';
 import bcrypt from 'bcrypt';
+import { authenticateToken } from '../middlewares/authMiddleware.js';
 
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM users');
         res.json(result.rows);
