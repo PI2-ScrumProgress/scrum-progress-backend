@@ -1,5 +1,9 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
+import Project from './projectsModel.js';
+import UserProject from './usersProjectsModel.js';
+import BacklogElement from './backlogElementsModel.js';
+import BacklogAssignment from './backlogAssignmentsModel.js';
 
 const User = sequelize.define('users', {
     id: {
@@ -29,5 +33,8 @@ const User = sequelize.define('users', {
 }, {
     timestamps: false
 });
+
+User.belongsToMany(Project, { through: UserProject, foreignKey: 'userId' });
+User.belongsToMany(BacklogElement, { through: BacklogAssignment, foreignKey: 'userId' });
 
 export default User;
