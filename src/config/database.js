@@ -1,18 +1,16 @@
 import pg from 'pg';
+import dotenv from 'dotenv';
 const { Pool } = pg;
 
-let localPoolConfig = {
-    host: 'localhost',
-    port: 5432,
-    database: 'scrum_progress',
-    user: 'postgres',
-    password: 'password',
-};
+dotenv.config();
 
-const poolConfig = process.env.DATABASE_URL ? {
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
-} : localPoolConfig;
+let poolConfig = {
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
+};
 
 const pool = new Pool(poolConfig);
 

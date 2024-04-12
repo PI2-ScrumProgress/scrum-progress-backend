@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-        let tokens = jwtTokens({ userId: user.id, name: user.name, email: user.email });
+        let tokens = jwtTokens({ userId: user.id, username: user.username, email: user.email });
 
         res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, sameSite: 'none', secure: true });
 
@@ -45,7 +45,7 @@ router.post('/refresh', (req, res) => {
             return res.sendStatus(403);
         }
 
-        let tokens = jwtTokens({ userId: user.userId, name: user.name, email: user.email });
+        let tokens = jwtTokens({ userId: user.userId, username: user.username, email: user.email });
 
         res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, sameSite: 'none', secure: true });
 
