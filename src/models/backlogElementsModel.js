@@ -38,7 +38,8 @@ const BacklogElement = sequelize.define("backlog_elements", {
     },
     creationDate: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     },
     completionDate: {
         type: DataTypes.DATE,
@@ -48,9 +49,10 @@ const BacklogElement = sequelize.define("backlog_elements", {
     timestamps: false
 });
 
-BacklogElement.belongsToMany(User, { through: BacklogAssignment, foreignKey: "backlogElementId" });
 BacklogElement.belongsTo(Project, { foreignKey: "projectId" });
 BacklogElement.hasOne(Task, { foreignKey: "id", onDelete: 'CASCADE' });
 BacklogElement.hasOne(UserStory, { foreignKey: "id", onDelete: 'CASCADE' });
+
+Task.hasOne(BacklogElement, { foreignKey: "id" });
 
 export default BacklogElement;

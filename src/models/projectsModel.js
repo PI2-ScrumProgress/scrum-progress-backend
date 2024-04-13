@@ -19,7 +19,4 @@ const Project = sequelize.define("projects", {
     timestamps: false
 });
 
-Project.belongsToMany(User, { through: UserProject, foreignKey: "projectId" });
-Project.hasMany(BacklogElement, { foreignKey: "projectId" });
-
 export default Project;

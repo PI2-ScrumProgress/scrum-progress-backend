@@ -4,8 +4,15 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+
+// Routes import
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
+import taskRouter from './routes/taskRoutes.js';
+import userStoryRouter from './routes/userStoryRoutes.js';
+
+// Database connection
+import sequelize from './config/database.js';
 
 dotenv.config();
 
@@ -22,7 +29,20 @@ app.use(cookieParser());
 app.use("/", express.static(join(__dirname, "public")));
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/tasks', taskRouter);
+app.use('/api/user-stories', userStoryRouter);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+async function main() {
+    try {
+        await sequelize.sync({ alter: true });
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+        console.log('Connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+}
+
+main();
+

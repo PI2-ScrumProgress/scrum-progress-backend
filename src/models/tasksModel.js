@@ -15,6 +15,5 @@ const Task = sequelize.define("tasks", {
     timestamps: false
 });
 
-Task.hasOne(BacklogElement, { foreignKey: "id", onDelete: 'CASCADE' });
 
 export default Task;

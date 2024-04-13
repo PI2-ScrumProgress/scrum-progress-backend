@@ -15,6 +15,5 @@ const UserStory = sequelize.define("user_stories", {
     timestamps: false
 });
 
-UserStory.hasOne(BacklogElement, { foreignKey: "id", onDelete: 'CASCADE' });
 
 export default UserStory;
