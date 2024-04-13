@@ -5,11 +5,21 @@ import cookieParser from 'cookie-parser';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
+// Models import
+import './models/userModel.js';
+import './models/tasksModel.js';
+import './models/userStoriesModel.js';
+import './models/backlogAssignmentsModel.js';
+import './models/projectsModel.js';
+import './models/usersProjectsModel.js';
+import './models/backlogElementsModel.js';
+
 // Routes import
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
 import taskRouter from './routes/taskRoutes.js';
 import userStoryRouter from './routes/userStoryRoutes.js';
+import backlogAssignmentRouter from './routes/backlogAssignmentRoutes.js';
 
 // Database connection
 import sequelize from './config/database.js';
@@ -31,6 +41,7 @@ app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/user-stories', userStoryRouter);
+app.use('/api/backlog-assignments', backlogAssignmentRouter);
 
 async function main() {
     try {

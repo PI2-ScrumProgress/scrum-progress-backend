@@ -10,6 +10,10 @@ const UserStory = sequelize.define("user_stories", {
     acceptanceCriteria: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    storyPoints: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
 }, {
     timestamps: false

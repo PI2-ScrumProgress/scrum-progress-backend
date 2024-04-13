@@ -1,22 +1,16 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
+import User from "./userModel.js";
+import BacklogElement from "./backlogElementsModel.js";
 
-const BacklogAssignment = sequelize.define("backlog_assignments", {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    backlogElementId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
-}, {
+const BacklogAssignment = sequelize.define("backlog_assignments", {}, {
     timestamps: false
 });
+
+BacklogAssignment.belongsTo(User);
+BacklogAssignment.belongsTo(BacklogElement);
+
+User.belongsToMany(BacklogElement, { through: BacklogAssignment });
+BacklogElement.belongsToMany(User, { through: BacklogAssignment });
 
 export default BacklogAssignment;

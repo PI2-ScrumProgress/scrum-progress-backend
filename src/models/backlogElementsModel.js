@@ -1,9 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 import Task from "./tasksModel.js";
-import User from "./userModel.js";
 import Project from "./projectsModel.js";
-import BacklogAssignment from "./backlogAssignmentsModel.js";
 import UserStory from "./userStoriesModel.js";
 
 const BacklogElement = sequelize.define("backlog_elements", {
@@ -49,10 +47,10 @@ const BacklogElement = sequelize.define("backlog_elements", {
     timestamps: false
 });
 
-BacklogElement.belongsTo(Project, { foreignKey: "projectId" });
 BacklogElement.hasOne(Task, { foreignKey: "id", onDelete: 'CASCADE' });
 BacklogElement.hasOne(UserStory, { foreignKey: "id", onDelete: 'CASCADE' });
 
 Task.hasOne(BacklogElement, { foreignKey: "id" });
+UserStory.hasOne(BacklogElement, { foreignKey: "id" });
 
 export default BacklogElement;
