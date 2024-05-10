@@ -8,6 +8,6 @@ import { authenticateToken } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 router.post("/create", createTaskHandler);
-router.get("/", authenticateToken, getTasksHandler);
+router.get("/", getTasksHandler);
 
 export default router;

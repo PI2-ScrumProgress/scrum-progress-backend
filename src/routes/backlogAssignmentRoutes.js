@@ -1,13 +1,13 @@
-import express from 'express';
+import express from "express";
 import {
-    assignBacklogElementHandler,
-    getAssignedBacklogElementsHandler
+  assignBacklogElementHandler,
+  getAssignedBacklogElementsHandler,
 } from "../controllers/backlogAssignmentController.js";
-import { authenticateToken } from '../middlewares/authMiddleware.js';
+import { authenticateToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post('/assign', authenticateToken, assignBacklogElementHandler);
-router.get('/:userId', authenticateToken, getAssignedBacklogElementsHandler);
+router.post("/assign", assignBacklogElementHandler);
+router.get("/:userId", getAssignedBacklogElementsHandler);
 
 export default router;
