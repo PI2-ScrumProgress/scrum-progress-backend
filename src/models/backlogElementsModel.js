@@ -3,6 +3,7 @@ import sequelize from "../config/database.js";
 import Task from "./tasksModel.js";
 import Project from "./projectsModel.js";
 import UserStory from "./userStoriesModel.js";
+import User from "./userModel.js";
 
 const BacklogElement = sequelize.define(
   "backlog_elements",
@@ -15,6 +16,10 @@ const BacklogElement = sequelize.define(
     projectId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     elementType: {
       type: DataTypes.STRING,
@@ -41,6 +46,10 @@ const BacklogElement = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    dueDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     completionDate: {
       type: DataTypes.DATE,
       allowNull: true,
@@ -56,5 +65,7 @@ BacklogElement.hasOne(UserStory, { foreignKey: "id", onDelete: "CASCADE" });
 
 Task.hasOne(BacklogElement, { foreignKey: "id" });
 UserStory.hasOne(BacklogElement, { foreignKey: "id" });
+
+BacklogElement.belongsTo(User, { foreignKey: "userId" });
 
 export default BacklogElement;

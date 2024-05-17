@@ -9,7 +9,6 @@ import { fileURLToPath } from "url";
 import "./models/userModel.js";
 import "./models/tasksModel.js";
 import "./models/userStoriesModel.js";
-import "./models/backlogAssignmentsModel.js";
 import "./models/projectsModel.js";
 import "./models/usersProjectsModel.js";
 import "./models/backlogElementsModel.js";
@@ -19,7 +18,6 @@ import userRouter from "./routes/userRoutes.js";
 import authRouter from "./routes/authRoutes.js";
 import taskRouter from "./routes/taskRoutes.js";
 import userStoryRouter from "./routes/userStoryRoutes.js";
-import backlogAssignmentRouter from "./routes/backlogAssignmentRoutes.js";
 import backlogElementRouter from "./routes/backlogElementsRoutes.js";
 
 // Database connection
@@ -45,7 +43,6 @@ app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/tasks", taskRouter);
 app.use("/api/user-stories", userStoryRouter);
-app.use("/api/backlog-assignments", backlogAssignmentRouter);
 app.use("/api/backlog-elements", backlogElementRouter);
 
 async function main() {
