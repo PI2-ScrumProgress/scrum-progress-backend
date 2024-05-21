@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 import Task from "./tasksModel.js";
-import Project from "./projectsModel.js";
 import UserStory from "./userStoriesModel.js";
 import User from "./userModel.js";
 
@@ -67,5 +66,6 @@ Task.hasOne(BacklogElement, { foreignKey: "id" });
 UserStory.hasOne(BacklogElement, { foreignKey: "id" });
 
 BacklogElement.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(BacklogElement, { foreignKey: "userId" });
 
 export default BacklogElement;
