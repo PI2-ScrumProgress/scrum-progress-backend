@@ -2,7 +2,9 @@ import BacklogElement from "../models/backlogElementsModel.js";
 import User from "../models/userModel.js";
 
 const getBacklogElements = async () => {
-  return await BacklogElement.findAll();
+  return await BacklogElement.findAll({
+    order: [["id", "ASC"]],
+  });
 };
 
 const assignBacklogElement = async (userId, backlogElementId) => {
