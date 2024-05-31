@@ -3,34 +3,35 @@ import User from "../models/userModel.js";
 import Task from "../models/tasksModel.js";
 import UserStory from "../models/userStoriesModel.js";
 import Project from "../models/projectsModel.js";
-import UserProject from "../models/usersProjectsModel.js";
 import BacklogElement from "../models/backlogElementsModel.js";
 
+import { createUser } from "../services/userService.js";
+
 async function seedDatabase() {
-  // Crear usuarios
-  const users = await User.bulkCreate([
-    {
-      username: "Pedro",
-      email: "pedro@correo.com",
-      password: "password",
-      completedTasks: 2,
-      points: 40,
-    },
-    {
-      username: "Sebastian",
-      email: "sebastian@correo.com",
-      password: "password",
-      completedTasks: 1,
-      points: 25,
-    },
-    {
-      username: "Wilmer",
-      email: "wilmer@correo.com",
-      password: "password",
-      completedTasks: 0,
-      points: 0,
-    },
-  ]);
+  // Crear usuarios con la función de servicio
+  const user0 = await createUser({
+    username: "Pedro",
+    email: "pedro@correo.com",
+    password: "password",
+    completedTasks: 2,
+    points: 40,
+  });
+
+  const user1 = await createUser({
+    username: "Sebastian",
+    email: "sebastian@correo.com",
+    password: "password",
+    completedTasks: 1,
+    points: 25,
+  });
+
+  const user2 = await createUser({
+    username: "Wilmer",
+    email: "wilmer@correo.com",
+    password: "password",
+    completedTasks: 0,
+    points: 0,
+  });
 
   // Crear proyectos
   const projects = await Project.bulkCreate([
@@ -42,62 +43,69 @@ async function seedDatabase() {
     {
       // Create task 1
       projectId: projects[0].id,
-      userId: users[0].id,
+      userId: user0.id,
       elementType: "task",
       title: "Fix bug 1",
       description: "Description for bug 1",
       priority: "high",
       status: "open",
+      dueDate: new Date("2022-12-31"),
     },
     {
       // Create task 2
       projectId: projects[0].id,
-      userId: users[1].id,
+      userId: user1.id,
       elementType: "task",
       title: "Complete task 1",
       description: "Description for task 1",
       priority: "low",
       status: "completed",
+      completionDate: new Date("2022-10-15"),
+      dueDate: new Date("2022-10-15"),
     },
     {
       // Create user story 1
       projectId: projects[0].id,
-      userId: users[2].id,
+      userId: user2.id,
       elementType: "user story",
       title: "Add user story 1",
       description: "Description for user story 1",
       priority: "medium",
       status: "in progress",
+      dueDate: new Date("2022-12-31"),
     },
     {
       // Create task 3
       projectId: projects[0].id,
-      userId: users[0].id,
+      userId: user0.id,
       elementType: "task",
       title: "Fix bug 1",
       description: "Description for bug 1",
       priority: "high",
       status: "open",
+      dueDate: new Date("2022-12-31"),
     },
     {
       // Create user story 2
       projectId: projects[0].id,
-      userId: users[2].id,
+      userId: user2.id,
       elementType: "user story",
       title: "Add user story 2",
       description: "Description for user story 2",
       priority: "medium",
       status: "in progress",
+      dueDate: new Date("2022-12-31"),
     },
     {
       // Create task 4
       projectId: projects[0].id,
-      userId: users[0].id,
+      userId: user0.id,
       elementType: "task",
       title: "Fix bug 2",
       description: "Description for bug 2",
       priority: "high",
       status: "open",
+      dueDate: new Date("2022-12-31"),
     },
   ]);
 
