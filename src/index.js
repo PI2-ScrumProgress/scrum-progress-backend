@@ -22,6 +22,7 @@ import backlogElementRouter from "./routes/backlogElementsRoutes.js";
 
 // Database connection
 import sequelize from "./config/database.js";
+import seedDatabase from "./utils/databaseInit.js";
 
 dotenv.config();
 
@@ -30,7 +31,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 5000;
 const corsOptions = {
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  origin: "*",
   credentials: true,
 };
 
@@ -47,10 +48,13 @@ app.use("/api/backlog-elements", backlogElementRouter);
 
 async function main() {
   try {
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
+
+    await seedDatabase();
+
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
